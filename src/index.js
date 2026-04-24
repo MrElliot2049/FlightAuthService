@@ -9,7 +9,7 @@ const startServer = () => {
         app.use(bodyParser.urlencoded({ extended:true }));
         app.use('/api',apiRoutes);
         
-        app.listen(PORT, (req,res) => {
+        app.listen(PORT, async (req,res) => {
         console.log(`Server started listening on ${PORT}`);
     });
 }
