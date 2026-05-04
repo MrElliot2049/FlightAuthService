@@ -4,4 +4,5 @@ const router = express.Router();
 const {authReqValidator} = require('../../middlewares/index')
 router.post('/signup', authReqValidator.validateUser, UserController.create);
 router.post('/signin', authReqValidator.validateUser, UserController.signin);
+router.get('/isAuthenticated', UserController.isAutenticated);
 module.exports = router;
