@@ -36,11 +36,11 @@ const signin = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
-            message : "Something went wrong at the control layer.",
+        return res.status(error.statusCode).json({
+            message : error.message,
             data: {},
             success: false,
-            err : error
+            err : error.explanation
         });
     }
 }
