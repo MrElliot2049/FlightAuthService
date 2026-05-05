@@ -2,7 +2,7 @@ const { JWT_KEY } = require('../config/server-config');
 const UserRepository = require('../repository/user-repository');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const AppError = require('../utils/error-handler');
 class UserService {
     constructor(){
         this.userRepository = new UserRepository();
@@ -13,8 +13,16 @@ class UserService {
             const user = await this.userRepository.createUser(data);
             return user;
         } catch (error) {
+            if (error.name == 'SequelizeValidationError') {
+                throw error;
+            }
             console.log('Something went wrong at the service layer.');
-            throw error;
+            throw new AppError(
+                'ServerError', 
+                'Something went wrong',
+                'Logical issue found',
+                500
+            );
         }
     }
 
